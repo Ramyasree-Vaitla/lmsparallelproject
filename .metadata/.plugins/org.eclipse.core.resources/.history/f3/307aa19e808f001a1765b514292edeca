@@ -1,0 +1,5 @@
+package com.capgemini.librarymanagementsystem_jdbc.dto;
+
+public class LMSBorrowedDetails {
+
+}

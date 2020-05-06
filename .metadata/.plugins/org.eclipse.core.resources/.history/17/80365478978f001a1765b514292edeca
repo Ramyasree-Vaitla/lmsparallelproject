@@ -1,0 +1,16 @@
+package com.capgemini.librarymanagementsystem_hibernate.factory;
+
+import com.capgemini.librarymanagementsystem_hibernate.dao.AdminDAO;
+import com.capgemini.librarymanagementsystem_hibernate.dao.AdminDAOImp;
+import com.capgemini.librarymanagementsystem_hibernate.service.AdminService;
+import com.capgemini.librarymanagementsystem_hibernate.service.AdminServiceImp;
+
+public class AdminFactory {
+	public static AdminDAO getAdminDAO() {
+		return new AdminDAOImp();
+	}
+	public static AdminService getAdminService() {
+		return new AdminServiceImp();
+	}
+}
+

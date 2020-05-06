@@ -1,0 +1,8 @@
+package com.capgemini.librarymanagementsystem_hibernate.service;
+
+import com.capgemini.librarymanagementsystem_hibernate.dto.UserBean;
+
+public interface UserService {
+	boolean register(UserBean bean);
+	UserBean auth(String email, String password);
+}

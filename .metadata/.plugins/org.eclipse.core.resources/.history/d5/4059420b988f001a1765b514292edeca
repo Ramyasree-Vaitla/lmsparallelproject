@@ -1,0 +1,49 @@
+package com.capgemini.librarymanagementsystem_hibernate.service;
+
+
+import java.util.LinkedList;
+import java.util.List;
+
+import com.capgemini.librarymanagementsystem_hibernate.dao.StudentDAO;
+import com.capgemini.librarymanagementsystem_hibernate.dto.Book;
+import com.capgemini.librarymanagementsystem_hibernate.factory.StudentFactory;
+
+
+public class StudentServiceImp implements StudentService{
+	private StudentDAO dao = StudentFactory.getStudentDAO();
+	@Override
+	public Book searchBookTitle(String name) {
+		return dao.searchBookTitle(name);
+	}
+
+	@Override
+	public Book searchBookAuthor(String Author) {
+		return dao.searchBookAuthor(Author);
+	}
+
+	@Override
+	public List<Integer> getBookIds() {
+		return dao.getBookIds();
+	}
+
+	@Override
+	public List<Book> getBooksInfo() {
+		return dao.getBooksInfo();
+	}
+
+	@Override
+	public Book searchBookType(int bookType) {
+		return dao.searchBookType(bookType);
+	}
+
+	@Override
+	public boolean req(int id, int book_id) {
+		return dao.req(id, book_id);
+	}
+
+	@Override
+	public boolean reqReturnBook(int id, int book_id) {
+		return dao.reqReturnBook(id, book_id);
+	}
+
+}

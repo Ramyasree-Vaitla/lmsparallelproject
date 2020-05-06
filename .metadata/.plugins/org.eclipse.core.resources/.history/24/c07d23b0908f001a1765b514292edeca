@@ -1,0 +1,24 @@
+package com.capgemini.librarymanagementsystem_hibernate.dto;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+public class LMSRequestDetails {
+	
+	@Id
+	@Column
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "seq1")
+	private int id;
+	@Column
+	private int uId;
+	@Column
+	private int bId;
+	@Column
+	private String email;
+	@Column
+	private String bookName;
+
+
+}

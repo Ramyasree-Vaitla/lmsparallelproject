@@ -1,0 +1,53 @@
+package com.capgemini.librarymanagementsystem_jdbc.service;
+
+import java.util.LinkedList;
+
+import com.capgemini.librarymanagementsystem_jdbc.dao.LMSUsersDAO;
+import com.capgemini.librarymanagementsystem_jdbc.dto.LMSBookDetails;
+import com.capgemini.librarymanagementsystem_jdbc.dto.LMSUsersDetails;
+import com.capgemini.librarymanagementsystem_jdbc.factory.LibraryFactory;
+
+public class LMSUsersServiceImplment implements LMSUsersService {
+
+	private LMSUsersDAO dao = LibraryFactory.getUsersDao();
+	@Override
+	public boolean register(LMSUsersDetails user) {
+		return dao.register(user);
+	}
+
+	@Override
+	public LMSUsersDetails login(String email, String password) {
+		return dao.login(email, password);
+	}
+
+	@Override
+	public boolean addBook(LMSBookDetails book) {
+		return dao.addBook(book);
+	}
+
+	@Override
+	public boolean removeBook(int bId) {
+		return dao.removeBook(bId);
+	}
+
+	@Override
+	public boolean updateBook(LMSBookDetails book) {
+		return dao.updateBook(book);
+	}
+
+	@Override
+	public boolean issueBook(int bId,int uId) {
+		return dao.issueBook(bId,uId);
+	}
+
+	@Override
+	public boolean request(int uId, int bId) {
+		return dao.request(uId, bId);
+	}
+
+	@Override
+	public LinkedList<LMSBookDetails> searchBookByTitle(String bookName) {
+		return dao.searchBookByTitle(bookName);
+	}
+
+}

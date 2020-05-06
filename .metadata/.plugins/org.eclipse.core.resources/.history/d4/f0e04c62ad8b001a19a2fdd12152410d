@@ -1,0 +1,5 @@
+package com.capgemini.librarymanagementsystem_hibernate.validation;
+
+public class ValidationAdminStudent {
+
+}

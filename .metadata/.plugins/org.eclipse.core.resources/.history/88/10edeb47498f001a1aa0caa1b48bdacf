@@ -1,0 +1,5 @@
+package com.capgemini.librarymanagementsystem_jdbc.utility;
+
+public class JDBCUtility {
+
+}

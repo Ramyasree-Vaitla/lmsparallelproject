@@ -1,0 +1,11 @@
+package com.capgemini.librarymanagementsystem_hibernate.dao;
+
+import com.capgemini.librarymanagementsystem_hibernate.dto.UserBean;
+
+public interface UserDAO {
+
+	boolean register(UserBean bean);
+	UserBean auth(String email, String password);
+
+}
+

@@ -1,0 +1,5 @@
+package com.capgemini.librarymanagementsystem_hibernate.service;
+
+public class UserServiceImp {
+
+}

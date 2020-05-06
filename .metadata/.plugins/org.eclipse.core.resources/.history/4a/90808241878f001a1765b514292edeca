@@ -1,0 +1,16 @@
+package com.capgemini.librarymanagementsystem_jdbc.factory;
+
+import com.capgemini.librarymanagementsystem_jdbc.dao.LMSUserDAOImplement;
+import com.capgemini.librarymanagementsystem_jdbc.dao.LMSUsersDAO;
+import com.capgemini.librarymanagementsystem_jdbc.service.LMSUsersService;
+import com.capgemini.librarymanagementsystem_jdbc.service.LMSUsersServiceImplement;
+
+public class LibraryFactory {
+		public static LMSUsersDAO getUsersDao() {
+			return new LMSUserDAOImplement();
+		}
+		public static LMSUsersService getUsersService() {
+			return new LMSUsersServiceImplement();
+		}
+	
+}

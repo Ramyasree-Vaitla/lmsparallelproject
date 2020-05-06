@@ -1,0 +1,11 @@
+package com.capgemini.librarymanagementsystem_jdbc.exception;
+
+@SuppressWarnings("serial")
+public class LMSException extends Exception {
+	
+		public LMSException(String message) {
+			super(message);
+		}
+	}
+
+

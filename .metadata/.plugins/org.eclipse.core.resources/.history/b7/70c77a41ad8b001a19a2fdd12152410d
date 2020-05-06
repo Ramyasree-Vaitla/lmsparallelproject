@@ -1,0 +1,3 @@
+package com.capgemini.librarymanagementsystem_hibernate.factory;
+
+public class UserFactory {

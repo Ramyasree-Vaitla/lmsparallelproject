@@ -1,0 +1,5 @@
+package com.capgemini.librarymanagementsystem_jdbc.validation;
+
+public class LMSValidation {
+
+}

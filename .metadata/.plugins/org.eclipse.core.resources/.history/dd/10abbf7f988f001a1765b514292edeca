@@ -1,0 +1,13 @@
+package com.capgemini.librarymanagementsystem_hibernate.factory;
+
+import com.capgemini.librarymanagementsystem_hibernate.dao.LMSUsersDAO;
+
+public class LibraryFactory {
+		public static LMSUsersDAO getUsersDao() {
+			return new LMSUsersDAOImplement();
+		}
+		public static UsersService getUsersService() {
+			return new UsersServiceImplement();
+		}
+
+}

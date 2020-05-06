@@ -1,0 +1,6 @@
+package com.capgemini.librarymanagementsystem_hibernate.dto;
+
+public class BookBean {
+
+	
+}

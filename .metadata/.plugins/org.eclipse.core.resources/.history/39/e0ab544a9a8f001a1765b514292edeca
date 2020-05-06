@@ -1,0 +1,93 @@
+package com.capgemini.librarymanagementsystem_hibernate.controller;
+
+
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+
+import com.capgemini.librarymanagementsystem_hibernate.dao.AdminDAO;
+import com.capgemini.librarymanagementsystem_hibernate.dao.AdminDAOImp;
+import com.capgemini.librarymanagementsystem_hibernate.dto.Book;
+import com.capgemini.librarymanagementsystem_hibernate.factory.AdminFactory;
+import com.capgemini.librarymanagementsystem_hibernate.factory.UserFactory;
+import com.capgemini.librarymanagementsystem_hibernate.service.AdminService;
+import com.capgemini.librarymanagementsystem_hibernate.service.UserService;
+
+
+public class UserController {
+	
+public static void main(String[] args) {
+	AdminDAO dao = new AdminDAOImp();
+	Book bean = new Book();
+	UserService service1 = UserFactory.getUserService();
+	AdminService service = AdminFactory.getAdminService();
+	
+//	boolean res=dao.delete(26);
+//	if(res == true) {
+//	System.out.println("record deleted");
+//	}else {
+//		System.out.println("not deleted");
+//	}
+	
+//	//create
+//	
+//
+		/*
+		 * //bean.setId(132); bean.setName("c++"); bean.setAuthor("dennis");;
+		 * bean.setCategory("js"); bean.setPublishername("sun"); //// //// boolean res =
+		 * dao.addBook(bean); System.out.println(res);
+		 */
+	
+//	// update
+		/*
+		 * bean.setId(48); bean.setName("jav"); boolean res = dao.update(bean); if(res
+		 * == false) { System.out.println("updated"); }else {
+		 * System.out.println("not updated"); }
+		 */
+	
+//	//get all books
+		/*
+		 * List<BookBean> list=dao.getBooksInfo();
+		 * 
+		 * 
+		 * for(BookBean ee :list) { System.out.println("*************************");
+		 * System.out.println("id is "+ee.getId());
+		 * System.out.println("name is "+ee.getName());
+		 * System.out.println(ee.getAuthor()); System.out.println(ee.getCategory());
+		 * System.out.println(ee.getPublishername()); }
+		 */
+//	
+	// get all ids
+		/*
+		 * List<BookBean> list=dao.getBookIds();
+		 * 
+		 * 
+		 * System.out.println(list);
+		 */
+	
+	//search by name
+		
+		/*
+		 * //BookBean bb = dao.searchBookTitle("name"); BookBean bb =
+		 * dao.searchBookTitle("soumya"); System.out.println(bb.getId());
+		 * System.out.println(bb.getName()); System.out.println(bb.getAuthor());
+		 * System.out.println(bb.getCategory());
+		 * System.out.println(bb.getPublishername());
+		 */
+	
+	
+	
+		/*
+		 * //search by author BookBean bb = dao.searchBookAuthor("dennis");
+		 * 
+		 * if(bb.equals("dennis")) { System.out.println(bb.getId());
+		 * System.out.println(bb.getName()); System.out.println(bb.getAuthor());
+		 * System.out.println(bb.getCategory());
+		 * System.out.println(bb.getPublishername()); }else {
+		 * System.out.println("book not found"); }
+		 */
+		 
+		  
+		 }
+}

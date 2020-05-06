@@ -1,0 +1,16 @@
+package com.capgemini.librarymanagementsystem_hibernate.factory;
+
+import com.capgemini.librarymanagementsystem_hibernate.dao.StudentDAO;
+import com.capgemini.librarymanagementsystem_hibernate.dao.StudentDAOImp;
+import com.capgemini.librarymanagementsystem_hibernate.service.StudentService;
+import com.capgemini.librarymanagementsystem_hibernate.service.StudentServiceImp;
+
+public class StudentFactory {
+	public static StudentDAO getStudentDAO() {
+		
+		return new StudentDAOImp();
+	}
+	public static StudentService getStudentService() {
+		return new StudentServiceImp();
+	}
+}

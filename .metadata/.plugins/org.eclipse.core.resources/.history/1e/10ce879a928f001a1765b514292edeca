@@ -1,0 +1,19 @@
+package com.capgemini.librarymanagementsystem_hibernate.dao;
+
+
+import java.util.LinkedList;
+import java.util.List;
+
+import com.capgemini.librarymanagementsystem_hibernate.dto.Book;
+
+
+public interface StudentDAO {
+	public Book searchBookTitle(String name); 
+	public Book searchBookAuthor(String Author);
+	boolean req(int id, int book_id);
+	public List<Integer> getBookIds();
+	public List<Book> getBooksInfo();
+	Book searchBookType(int bookType);
+	boolean reqReturnBook(int id, int book_id);
+}
+

@@ -1,0 +1,9 @@
+package com.capgemini.librarymanagementsystem.controller;
+
+public class Library {
+
+	public static void main(String[] args) {
+		library.doReg();
+	}
+
+}

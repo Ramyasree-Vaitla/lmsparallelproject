@@ -1,0 +1,65 @@
+package com.capgemini.librarymanagementsystem_hibernate.service;
+
+
+import java.util.LinkedList;
+import java.util.List;
+
+import com.capgemini.librarymanagementsystem_hibernate.dao.AdminDAO;
+import com.capgemini.librarymanagementsystem_hibernate.dto.Book;
+import com.capgemini.librarymanagementsystem_hibernate.factory.AdminFactory;
+
+
+public class AdminServiceImp implements AdminService{
+	private AdminDAO dao = AdminFactory.getAdminDAO();
+	@Override
+	public boolean update(Book book) {
+		return dao.update(book);
+	}
+
+	@Override
+	public boolean delete(int bId) {
+		return dao.delete(bId);
+	}
+
+	@Override
+	public boolean addBook(Book info) {
+		return dao.addBook(info);
+	}
+
+	@Override
+	public List<Integer> getBookIds() {
+		return dao.getBookIds();
+	}
+
+	@Override
+	public List<Book> getBooksInfo() {
+		return dao.getBooksInfo();
+	}
+
+
+	@Override
+	public Book searchBookTitle(String name) {
+		return dao.searchBookTitle(name);
+	}
+
+	@Override
+	public Book searchBookAuthor(String Author) {
+		return dao.searchBookAuthor(Author);
+	}
+
+	@Override
+	public Book searchBookType(int bookType) {
+		return dao.searchBookType(bookType);
+	}
+
+	@Override
+	public boolean issueBook(int id, int book_id) {
+		return dao.issueBook(id, book_id);
+	}
+
+	@Override
+	public boolean returnBook(int id, int book_id) {
+		return dao.returnBook(id, book_id);
+	}
+
+}
