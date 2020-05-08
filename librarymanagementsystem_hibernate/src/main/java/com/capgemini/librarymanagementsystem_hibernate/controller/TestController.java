@@ -4,14 +4,16 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import com.capgemini.librarymanagementsystem_hibernate.dto.LMSBookDetails;
-import com.capgemini.librarymanagementsystem_hibernate.dto.LMSBookIssueDetails;
-import com.capgemini.librarymanagementsystem_hibernate.dto.LMSBorrowedDetails;
-import com.capgemini.librarymanagementsystem_hibernate.dto.LMSRequestDetails;
-import com.capgemini.librarymanagementsystem_hibernate.dto.LMSUsersDetails;
+import com.capgemini.librarymanagementsystem_hibernate.dto.BookBorrowedInfoBean;
+import com.capgemini.librarymanagementsystem_hibernate.dto.BookInfoBean;
+import com.capgemini.librarymanagementsystem_hibernate.dto.BookIssueInfoBean;
+import com.capgemini.librarymanagementsystem_hibernate.dto.BookRequestInfoBean;
+import com.capgemini.librarymanagementsystem_hibernate.dto.UserInfoBean;
 import com.capgemini.librarymanagementsystem_hibernate.exception.LMSException;
 import com.capgemini.librarymanagementsystem_hibernate.factory.LibraryFactory;
-import com.capgemini.librarymanagementsystem_hibernate.service.LMSUsersService;
+import com.capgemini.librarymanagementsystem_hibernate.service.AdminService;
+import com.capgemini.librarymanagementsystem_hibernate.service.AdminUserService;
+import com.capgemini.librarymanagementsystem_hibernate.service.UserService;
 import com.capgemini.librarymanagementsystem_hibernate.validation.LMSValidation;
 
 public class TestController {
@@ -36,7 +38,9 @@ public class TestController {
 				System.out.println("Press 3 to EXIT");
 				do {
 					try {
-						LMSUsersService service1 = LibraryFactory.getUsersService();
+						AdminService service1 = LibraryFactory.getAdminService();
+						AdminUserService service2 = LibraryFactory.getAdminUserService();
+						UserService service3 = LibraryFactory.getUserService();
 						int choice = scanner.nextInt();
 						switch (choice) {
 						case 1:
@@ -123,7 +127,7 @@ public class TestController {
 							} while (!flag);
 							System.out.println("Enter the role");
 							String regRole = scanner.next();
-							LMSUsersDetails ai = new LMSUsersDetails();
+							UserInfoBean ai = new UserInfoBean();
 							ai.setUId(regId);
 							ai.setFirstName(regFirstName);
 							ai.setLastName(regLastName);
@@ -132,7 +136,7 @@ public class TestController {
 							ai.setMobile(regMobile);
 							ai.setRole(regRole);
 							try {
-								boolean check = service1.register(ai);
+								boolean check = service2.register(ai);
 								if (check) {
 									System.out.println("Registered");
 								} else {
@@ -148,7 +152,7 @@ public class TestController {
 							System.out.println("enter password");
 							String password = scanner.next();
 							try {
-								LMSUsersDetails loginInfo = service1.login(email, password);
+								UserInfoBean loginInfo = service2.login(email, password);
 								if (loginInfo.getEmail().equals(email) && loginInfo.getPassword().equals(password)) {
 									System.out.println("Logged In");
 								}
@@ -188,7 +192,7 @@ public class TestController {
 												 * System.out.println("enter no of copies"); int addCopies =
 												 * scanner.nextInt();
 												 */
-												LMSBookDetails bi = new LMSBookDetails();
+												BookInfoBean bi = new BookInfoBean();
 												// bi.setBId(addId);
 												bi.setBookName(addName);
 												bi.setAuthor(addAuth);
@@ -236,7 +240,7 @@ public class TestController {
 												System.out.println("Enter User Id");
 												int userId = scanner.nextInt();
 												try {
-													boolean check4 = service1.issueBook(issueId, userId);
+													boolean check4 = service1.bookIssue(issueId, userId);
 													if (check4) {
 														System.out.println(
 																"-----------------------------------------------");
@@ -254,14 +258,14 @@ public class TestController {
 												System.out.println("Search the book by the Author Name:");
 												String author = scanner.next();
 												try {
-													List<LMSBookDetails> bookauthor = service1
+													List<BookInfoBean> bookauthor = service2
 															.searchBookByAuthor(author);
 													if (!bookauthor.isEmpty() && bookauthor != null) {
 														System.out.println(String.format("%-10s %-25s %-25s %-20s %s",
 																"Book-Id", "Book-Name", "Author", "Category",
 																"Publisher"));
 
-														for (LMSBookDetails bookBean : bookauthor) {
+														for (BookInfoBean bookBean : bookauthor) {
 
 															if (bookBean != null) {
 																System.out.println(String.format(
@@ -285,12 +289,12 @@ public class TestController {
 												System.out.println("Search the book by the Book_Title :");
 												String btitle = scanner.next();
 												try {
-													List<LMSBookDetails> booktitle = service1.searchBookByTitle(btitle);
+													List<BookInfoBean> booktitle = service2.searchBookByTitle(btitle);
 													if (!booktitle.isEmpty() && booktitle != null) {
 														System.out.println(String.format("%-10s %-25s %-25s %-20s %s",
 																"Book-Id", "Book-Name", "Author", "Category",
 																"Publisher"));
-														for (LMSBookDetails bookBean : booktitle) {
+														for (BookInfoBean bookBean : booktitle) {
 															if (bookBean != null) {
 																System.out.println(String.format(
 																		"%-10s %-25s %-25s %-20s %s", bookBean.getBId(),
@@ -312,12 +316,12 @@ public class TestController {
 
 											case 6:
 												try {
-													List<LMSBookDetails> info = service1.getBooksInfo();
+													List<BookInfoBean> info = service2.getBooksInfo();
 													if (!info.isEmpty() && info != null) {
 														System.out.println(String.format("%-10s %-25s %-25s %-20s %s",
 																"Book-Id", "Book-Name", "Author", "Category",
 																"Publisher"));
-														for (LMSBookDetails bookBean : info) {
+														for (BookInfoBean bookBean : info) {
 
 															if (bookBean != null) {
 																System.out.println(String.format(
@@ -341,12 +345,12 @@ public class TestController {
 												System.out.println("  Search the book by the Book_ID :");
 												int book_Id = scanner.nextInt();
 												try {
-													List<LMSBookDetails> bId = service1.searchBookById(book_Id);
+													List<BookInfoBean> bId = service2.searchBookById(book_Id);
 													if (!bId.isEmpty() && bId != null) {
 														System.out.println(String.format("%-10s %-25s %-25s %-20s %s",
 																"Book-Id", "Book-Name", "Author", "Category",
 																"Publisher"));
-														for (LMSBookDetails bookBean : bId) {
+														for (BookInfoBean bookBean : bId) {
 															if (bookBean != null) {
 																System.out.println(String.format(
 																		"%-10s %-25s %-25s %-20s %s", bookBean.getBId(),
@@ -370,7 +374,7 @@ public class TestController {
 												int bid = scanner.nextInt();
 												System.out.println("Enter bookName to be updtaed");
 												String updatedBookName = scanner.next();
-												LMSBookDetails bean2 = new LMSBookDetails();
+												BookInfoBean bean2 = new BookInfoBean();
 												bean2.setBId(bid);
 												bean2.setBookName(updatedBookName);
 												try {
@@ -393,7 +397,7 @@ public class TestController {
 												System.out.println("Enter the User Id");
 												int user_Id = scanner.nextInt();
 												try {
-													List<Integer> uid = service1.bookHistoryDetails(user_Id);
+													List<Integer> uid = service3.bookHistoryDetails(user_Id);
 													for (Integer issueDetails : uid) {
 														if (issueDetails != null) {
 															System.out.println(
@@ -413,10 +417,10 @@ public class TestController {
 											case 10:
 												System.out.println(" Requests received are:");
 												try {
-													List<LMSRequestDetails> requests = service1.showRequests();
+													List<BookRequestInfoBean> requests = service1.showRequests();
 													System.out.println(String.format("%10s %-10s %-10s %-25s %s", "id",
 															"User_Id", "Book_Id", "User_Email", "BookName"));
-													for (LMSRequestDetails requestBean : requests) {
+													for (BookRequestInfoBean requestBean : requests) {
 														if (requestBean != null) {
 															System.out.println(String.format(
 																	"%-10s %-10s %-10s %-25s %s", requestBean.getId(),
@@ -436,10 +440,10 @@ public class TestController {
 											case 11:
 												System.out.println("Issued Books are:");
 												try {
-													List<LMSBookIssueDetails> issuedBooks = service1.showIssuedBooks();
+													List<BookIssueInfoBean> issuedBooks = service1.showIssuedBooks();
 													System.out.println(String.format("%-10s %-10s %-10s %25s %s", "Id",
 															"User_Id", "Book_Id", "Issue_Date", "Return_Date"));
-													for (LMSBookIssueDetails issueBean : issuedBooks) {
+													for (BookIssueInfoBean issueBean : issuedBooks) {
 														if (issueBean != null) {
 															System.out.println(String.format(
 																	"%-10s %-10s %-10s %25s %s", issueBean.getId(),
@@ -461,12 +465,12 @@ public class TestController {
 												System.out.println("Users LMSBookIssueDetailsare:");
 												try {
 
-													List<LMSUsersDetails> users = service1.showUsers();
+													List<UserInfoBean> users = service1.showUsers();
 													System.out.println(
 															String.format("%-10s %-15s %-15s %-15s %-10s %-10s %s",
 																	"UserId", "FirstName", "LastName", "Email",
 																	"Password", "Mobile", "Role"));
-													for (LMSUsersDetails bean : users) {
+													for (UserInfoBean bean : users) {
 														if (bean != null) {
 															System.out.println(String.format(
 																	"%-10s %-15s %-15s %-15s %-10s %-10s %s",
@@ -494,7 +498,7 @@ public class TestController {
 												String new_Password = scanner.next();
 												String user_Role = loginInfo.getRole();
 												try {
-													boolean updated = service1.updatePassword(id, old_Password,
+													boolean updated = service2.updatePassword(id, old_Password,
 															new_Password, user_Role);
 													if (updated) {
 														System.out.println(
@@ -547,7 +551,7 @@ public class TestController {
 												int reqUserId = scanner.nextInt();
 												try {
 													if (loginInfo.getUId() == reqUserId) {
-														boolean requested = service1.request(reqUserId, reqBookId);
+														boolean requested = service3.request(reqUserId, reqBookId);
 														if (requested != false) {
 															System.out.println(
 																	"-----------------------------------------------");
@@ -570,11 +574,11 @@ public class TestController {
 												int user_Id = scanner.nextInt();
 												try {
 													if (loginInfo.getUId() == user_Id) {
-														List<LMSBorrowedDetails> borrowedBookList = service1
+														List<BookBorrowedInfoBean> borrowedBookList = service3
 																.borrowedBook(user_Id);
 														System.out.println(String.format("%-5s %-5s %-5s %s", "Id",
 																"User-Id", "Book-Id", "BookName"));
-														for (LMSBorrowedDetails bookBean : borrowedBookList) {
+														for (BookBorrowedInfoBean bookBean : borrowedBookList) {
 
 															if (bookBean != null) {
 																System.out.println(String.format("%-5s %-5s %-5s %s",
@@ -599,14 +603,14 @@ public class TestController {
 												System.out.println("Search the book by the Author Name:");
 												String author = scanner.next();
 												try {
-													List<LMSBookDetails> bookauthor = service1
+													List<BookInfoBean> bookauthor = service2
 															.searchBookByAuthor(author);
 													if (!bookauthor.isEmpty() && bookauthor != null) {
 														System.out.println(String.format("%-10s %-25s %-25s %-20s %s",
 																"Book-Id", "Book-Name", "Author", "Category",
 																"Publisher"));
 
-														for (LMSBookDetails bookBean : bookauthor) {
+														for (BookInfoBean bookBean : bookauthor) {
 
 															if (bookBean != null) {
 																System.out.println(String.format(
@@ -630,12 +634,12 @@ public class TestController {
 												System.out.println("Search the book by the Book_Title :");
 												String btitle = scanner.next();
 												try {
-													List<LMSBookDetails> booktitle = service1.searchBookByTitle(btitle);
+													List<BookInfoBean> booktitle = service2.searchBookByTitle(btitle);
 													if (!booktitle.isEmpty() && booktitle != null) {
 														System.out.println(String.format("%-10s %-25s %-25s %-20s %s",
 																"Book-Id", "Book-Name", "Author", "Category",
 																"Publisher"));
-														for (LMSBookDetails bookBean : booktitle) {
+														for (BookInfoBean bookBean : booktitle) {
 															if (bookBean != null) {
 																System.out.println(String.format(
 																		"%-10s %-25s %-25s %-20s %s", bookBean.getBId(),
@@ -658,12 +662,12 @@ public class TestController {
 												System.out.println("  Search the book by the Book_ID :");
 												int book_Id = scanner.nextInt();
 												try {
-													List<LMSBookDetails> bId = service1.searchBookById(book_Id);
+													List<BookInfoBean> bId = service2.searchBookById(book_Id);
 													if (!bId.isEmpty() && bId != null) {
 														System.out.println(String.format("%-10s %-25s %-25s %-20s %s",
 																"Book-Id", "Book-Name", "Author", "Category",
 																"Publisher"));
-														for (LMSBookDetails bookBean : bId) {
+														for (BookInfoBean bookBean : bId) {
 															if (bookBean != null) {
 																System.out.println(String.format(
 																		"%-10s %-25s %-25s %-20s %s", bookBean.getBId(),
@@ -684,12 +688,12 @@ public class TestController {
 												break;
 											case 6:
 												try {
-													List<LMSBookDetails> info = service1.getBooksInfo();
+													List<BookInfoBean> info = service2.getBooksInfo();
 													if (!info.isEmpty() && info != null) {
 														System.out.println(String.format("%-10s %-25s %-25s %-20s %s",
 																"Book-Id", "Book-Name", "Author", "Category",
 																"Publisher"));
-														for (LMSBookDetails bookBean : info) {
+														for (BookInfoBean bookBean : info) {
 
 															if (bookBean != null) {
 																System.out.println(String.format(
@@ -718,7 +722,7 @@ public class TestController {
 												String status = scanner.next();
 												try {
 													if (loginInfo.getUId() == userId) {
-														boolean returned = service1.returnBook(returnId, userId,
+														boolean returned = service3.returnBook(returnId, userId,
 																status);
 														if (returned != false) {
 															System.out.println(
@@ -746,7 +750,7 @@ public class TestController {
 												String new_Password = scanner.next();
 												String user_Role = loginInfo.getRole();
 												try {
-													boolean updated = service1.updatePassword(id, old_Password,
+													boolean updated = service2.updatePassword(id, old_Password,
 															new_Password, user_Role);
 													if (updated) {
 														System.out.println(
