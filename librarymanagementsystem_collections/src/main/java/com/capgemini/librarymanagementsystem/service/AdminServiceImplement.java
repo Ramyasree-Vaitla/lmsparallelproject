@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.capgemini.librarymanagementsystem.dao.AdminDAO;
-import com.capgemini.librarymanagementsystem.dto.Admin;
-import com.capgemini.librarymanagementsystem.dto.Book;
-import com.capgemini.librarymanagementsystem.dto.Request;
-import com.capgemini.librarymanagementsystem.dto.User;
+import com.capgemini.librarymanagementsystem.dto.AdminInfoBean;
+import com.capgemini.librarymanagementsystem.dto.BookInfoBean;
+import com.capgemini.librarymanagementsystem.dto.RequestInfoBean;
+import com.capgemini.librarymanagementsystem.dto.UserInfoBean;
 import com.capgemini.librarymanagementsystem.factory.LibraryFactory;
 
 public class AdminServiceImplement implements AdminService {
@@ -15,18 +15,18 @@ public class AdminServiceImplement implements AdminService {
 	private AdminDAO dao = LibraryFactory.getAdminDAO();
 
 	@Override
-	public boolean registerAdmin(Admin admin) {
-		return dao.registerAdmin(admin);
+	public boolean registerAdmin(AdminInfoBean adminInfoBean) {
+		return dao.registerAdmin(adminInfoBean);
 	}
 
 	@Override
-	public Admin loginAdmin(String email, String password) {
+	public AdminInfoBean loginAdmin(String email, String password) {
 		return dao.loginAdmin(email, password);
 	}
 
 	@Override
-	public boolean addBook(Book book) {
-		return dao.addBook(book);
+	public boolean addBook(BookInfoBean bookInfoBean) {
+		return dao.addBook(bookInfoBean);
 	}
 
 	@Override
@@ -35,48 +35,48 @@ public class AdminServiceImplement implements AdminService {
 	}
 
 	@Override
-	public boolean updateBook(Book book) {
-		return dao.updateBook(book);
+	public boolean updateBook(BookInfoBean bookInfoBean) {
+		return dao.updateBook(bookInfoBean);
 	}
 
 	@Override
-	public ArrayList<Book> searchBookByTitle(String bookName) {
+	public ArrayList<BookInfoBean> searchBookByTitle(String bookName) {
 		return dao.searchBookByTitle(bookName);
 	}
 
 	@Override
-	public ArrayList<Book> searchBookByAuthor(String author) {
+	public ArrayList<BookInfoBean> searchBookByAuthor(String author) {
 		return dao.searchBookByAuthor(author);
 	}
 
 	@Override
-	public ArrayList<Book> searchBookByCategory(String category) {
+	public ArrayList<BookInfoBean> searchBookByCategory(String category) {
 		return dao.searchBookByCategory(category);
 	}
 
 	@Override
-	public ArrayList<Book> getBooksInfo() {
+	public ArrayList<BookInfoBean> getBooksInfo() {
 		return dao.getBooksInfo();
 	}
 
 	@Override
-	public List<User> showUsers() {
+	public List<UserInfoBean> showUsers() {
 		return dao.showUsers();
 	}
 
 	@Override
-	public List<Request> showRequests() {
+	public List<RequestInfoBean> showRequests() {
 		return dao.showRequests();
 	}
 
 	@Override
-	public boolean bookIssue(User user, Book book) {
-		return dao.bookIssue(user, book);
+	public boolean bookIssue(UserInfoBean userInfoBean, BookInfoBean bookInfoBean) {
+		return dao.bookIssue(userInfoBean, bookInfoBean);
 	}
 
 	@Override
-	public boolean isBookReceived(User user, Book book) {
-		return dao.isBookReceived(user, book);
+	public boolean isBookReceived(UserInfoBean userInfoBean, BookInfoBean bookInfoBean) {
+		return dao.isBookReceived(userInfoBean, bookInfoBean);
 	}
 
 }

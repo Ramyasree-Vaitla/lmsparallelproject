@@ -2,26 +2,26 @@ package com.capgemini.librarymanagementsystem.dao;
 
 import java.util.ArrayList;
 
-import com.capgemini.librarymanagementsystem.dto.Book;
-import com.capgemini.librarymanagementsystem.dto.Request;
-import com.capgemini.librarymanagementsystem.dto.User;
+import com.capgemini.librarymanagementsystem.dto.BookInfoBean;
+import com.capgemini.librarymanagementsystem.dto.RequestInfoBean;
+import com.capgemini.librarymanagementsystem.dto.UserInfoBean;
 
 public interface UserDAO {
 
-	boolean registerUser(User user);
+	boolean registerUser(UserInfoBean userInfoBean);
 
-	User loginUser(String email, String password);
+	UserInfoBean loginUser(String email, String password);
 
-	public Request bookRequest(User user, Book book);
+	ArrayList<BookInfoBean> getBooksInfo();
 
-	public Request bookReturn(User student, Book book);
+	ArrayList<BookInfoBean> searchBookByAuthor(String author);
 
-	// Book borrowBook(int id);
-	ArrayList<Book> searchBookByTitle(String bookName);
+	ArrayList<BookInfoBean> searchBookByTitle(String bookName);
 
-	ArrayList<Book> searchBookByAuthor(String author);
+	ArrayList<BookInfoBean> searchBookByCategory(String category);
 
-	ArrayList<Book> searchBookByCategory(String category);
+	public RequestInfoBean bookRequest(UserInfoBean userInfoBean, BookInfoBean bookInfoBean);
 
-	ArrayList<Book> getBooksInfo();
+	public RequestInfoBean bookReturn(UserInfoBean student, BookInfoBean bookInfoBean);
+
 }

@@ -3,36 +3,36 @@ package com.capgemini.librarymanagementsystem.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capgemini.librarymanagementsystem.dto.Admin;
-import com.capgemini.librarymanagementsystem.dto.Book;
-import com.capgemini.librarymanagementsystem.dto.Request;
-import com.capgemini.librarymanagementsystem.dto.User;
+import com.capgemini.librarymanagementsystem.dto.AdminInfoBean;
+import com.capgemini.librarymanagementsystem.dto.BookInfoBean;
+import com.capgemini.librarymanagementsystem.dto.RequestInfoBean;
+import com.capgemini.librarymanagementsystem.dto.UserInfoBean;
 
 public interface AdminDAO {
-	boolean registerAdmin(Admin admin);
+	boolean registerAdmin(AdminInfoBean adminInfoBean);
 
-	Admin loginAdmin(String email, String password);
+	AdminInfoBean loginAdmin(String email, String password);
 
-	boolean addBook(Book book);
+	boolean addBook(BookInfoBean bookInfoBean);
 
 	boolean removeBook(int id);
 
-	boolean updateBook(Book book);
+	boolean updateBook(BookInfoBean bookInfoBean);
 
-	ArrayList<Book> searchBookByTitle(String bookName);
+	ArrayList<BookInfoBean> searchBookByTitle(String bookName);
 
-	ArrayList<Book> searchBookByAuthor(String author);
+	ArrayList<BookInfoBean> searchBookByAuthor(String author);
 
-	ArrayList<Book> searchBookByCategory(String category);
+	ArrayList<BookInfoBean> searchBookByCategory(String category);
 
-	ArrayList<Book> getBooksInfo();
+	ArrayList<BookInfoBean> getBooksInfo();
 
-	List<User> showUsers();
+	List<UserInfoBean> showUsers();
 
-	List<Request> showRequests();
+	List<RequestInfoBean> showRequests();
 
-	boolean bookIssue(User user, Book book);
+	boolean bookIssue(UserInfoBean userInfoBean, BookInfoBean bookInfoBean);
 
-	boolean isBookReceived(User user, Book book);
+	boolean isBookReceived(UserInfoBean userInfoBean, BookInfoBean bookInfoBean);
 
 }

@@ -2,27 +2,27 @@ package com.capgemini.librarymanagementsystem.service;
 
 import java.util.ArrayList;
 
-import com.capgemini.librarymanagementsystem.dto.Book;
-import com.capgemini.librarymanagementsystem.dto.Request;
-import com.capgemini.librarymanagementsystem.dto.User;
+import com.capgemini.librarymanagementsystem.dto.BookInfoBean;
+import com.capgemini.librarymanagementsystem.dto.RequestInfoBean;
+import com.capgemini.librarymanagementsystem.dto.UserInfoBean;
 
 public interface UserService {
 
-	boolean registerUser(User user);
+	boolean registerUser(UserInfoBean userInfoBean);
 
-	User loginUser(String email, String password);
+	UserInfoBean loginUser(String email, String password);
 
-	public Request bookRequest(User user, Book book);
+	public RequestInfoBean bookRequest(UserInfoBean userInfoBean, BookInfoBean bookInfoBean);
 
-	public Request bookReturn(User student, Book book);
+	public RequestInfoBean bookReturn(UserInfoBean student, BookInfoBean bookInfoBean);
 
 	// Book borrowBook(int id);
-	ArrayList<Book> searchBookByTitle(String bookName);
+	ArrayList<BookInfoBean> searchBookByTitle(String bookName);
 
-	ArrayList<Book> searchBookByAuthor(String author);
+	ArrayList<BookInfoBean> searchBookByAuthor(String author);
 
-	ArrayList<Book> searchBookByCategory(String category);
+	ArrayList<BookInfoBean> searchBookByCategory(String category);
 
-	ArrayList<Book> getBooksInfo();
+	ArrayList<BookInfoBean> getBooksInfo();
 
 }

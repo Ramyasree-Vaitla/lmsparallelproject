@@ -3,31 +3,31 @@ package com.capgemini.librarymanagementsystem.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capgemini.librarymanagementsystem.database.LibraryDB;
-import com.capgemini.librarymanagementsystem.dto.Admin;
-import com.capgemini.librarymanagementsystem.dto.Book;
-import com.capgemini.librarymanagementsystem.dto.Request;
-import com.capgemini.librarymanagementsystem.dto.User;
+import com.capgemini.librarymanagementsystem.database.LibraryCollectionsDB;
+import com.capgemini.librarymanagementsystem.dto.AdminInfoBean;
+import com.capgemini.librarymanagementsystem.dto.BookInfoBean;
+import com.capgemini.librarymanagementsystem.dto.RequestInfoBean;
+import com.capgemini.librarymanagementsystem.dto.UserInfoBean;
 import com.capgemini.librarymanagementsystem.exception.LMSException;
 
 public class AdminDAOImplement implements AdminDAO {
 
 	@Override
-	public boolean registerAdmin(Admin admin) {
-		for (Admin ad : LibraryDB.ADMINS) {
-			if (ad.getEmail().equals(admin.getEmail())) {
+	public boolean registerAdmin(AdminInfoBean adminInfoBean) {
+		for (AdminInfoBean ad : LibraryCollectionsDB.ADMINS) {
+			if (ad.getEmail().equals(adminInfoBean.getEmail())) {
 				return false;
 			}
 		}
-		LibraryDB.ADMINS.add(admin);
+		LibraryCollectionsDB.ADMINS.add(adminInfoBean);
 		return true;
 	}
 
 	@Override
-	public Admin loginAdmin(String email, String password) {
-		for (Admin admin : LibraryDB.ADMINS) {
-			if (admin.getEmail().equals(email) && admin.getPassword().equals(password)) {
-				return admin;
+	public AdminInfoBean loginAdmin(String email, String password) {
+		for (AdminInfoBean adminInfoBean : LibraryCollectionsDB.ADMINS) {
+			if (adminInfoBean.getEmail().equals(email) && adminInfoBean.getPassword().equals(password)) {
+				return adminInfoBean;
 			}
 		}
 		throw new LMSException("Invalid credentials");
@@ -35,25 +35,25 @@ public class AdminDAOImplement implements AdminDAO {
 	}
 
 	@Override
-	public boolean addBook(Book book) {
-		for (Book b : LibraryDB.BOOKS) {
-			if (b.getBookId() == book.getBookId()) {
+	public boolean addBook(BookInfoBean bookInfoBean) {
+		for (BookInfoBean b : LibraryCollectionsDB.BOOKS) {
+			if (b.getBookId() == bookInfoBean.getBookId()) {
 				return false;
 			}
 		}
-		LibraryDB.BOOKS.add(book);
+		LibraryCollectionsDB.BOOKS.add(bookInfoBean);
 		return true;
 	}
 
 	@Override
 	public boolean removeBook(int id) {
 		boolean removeStatus = false;
-		for (int i = 0; i <= LibraryDB.BOOKS.size() - 1; i++) {
-			Book retrievedBook = LibraryDB.BOOKS.get(i);
+		for (int i = 0; i <= LibraryCollectionsDB.BOOKS.size() - 1; i++) {
+			BookInfoBean retrievedBook = LibraryCollectionsDB.BOOKS.get(i);
 			int retrievedId = retrievedBook.getBookId();
 			if (id == retrievedId) {
 				removeStatus = true;
-				LibraryDB.BOOKS.remove(i);
+				LibraryCollectionsDB.BOOKS.remove(i);
 				break;
 			}
 		}
@@ -62,14 +62,14 @@ public class AdminDAOImplement implements AdminDAO {
 
 	@SuppressWarnings("unused")
 	@Override
-	public boolean updateBook(Book book) {
+	public boolean updateBook(BookInfoBean bookInfoBean) {
 
-		for (int i = 0; i <= LibraryDB.BOOKS.size() - 1; i++) {
-			Book retrievedBook = LibraryDB.BOOKS.get(i);
-			if (retrievedBook.getBookId() == book.getBookId()) {
-				retrievedBook.setBookName(book.getBookName());
-				retrievedBook.setAuthorName(book.getAuthorName());
-				retrievedBook.setBookCategory(book.getBookCategory());
+		for (int i = 0; i <= LibraryCollectionsDB.BOOKS.size() - 1; i++) {
+			BookInfoBean retrievedBook = LibraryCollectionsDB.BOOKS.get(i);
+			if (retrievedBook.getBookId() == bookInfoBean.getBookId()) {
+				retrievedBook.setBookName(bookInfoBean.getBookName());
+				retrievedBook.setAuthorName(bookInfoBean.getAuthorName());
+				retrievedBook.setBookCategory(bookInfoBean.getBookCategory());
 				return true;
 			}
 
@@ -81,10 +81,10 @@ public class AdminDAOImplement implements AdminDAO {
 	}
 
 	@Override
-	public ArrayList<Book> searchBookByTitle(String bookName) {
-		ArrayList<Book> searchList = new ArrayList<Book>();
-		for (int i = 0; i <= LibraryDB.BOOKS.size() - 1; i++) {
-			Book retrievedBook = LibraryDB.BOOKS.get(i);
+	public ArrayList<BookInfoBean> searchBookByTitle(String bookName) {
+		ArrayList<BookInfoBean> searchList = new ArrayList<BookInfoBean>();
+		for (int i = 0; i <= LibraryCollectionsDB.BOOKS.size() - 1; i++) {
+			BookInfoBean retrievedBook = LibraryCollectionsDB.BOOKS.get(i);
 			String retrievedBookName = retrievedBook.getBookName();
 			if (bookName.equals(retrievedBookName)) {
 				searchList.add(retrievedBook);
@@ -100,10 +100,10 @@ public class AdminDAOImplement implements AdminDAO {
 	}
 
 	@Override
-	public ArrayList<Book> searchBookByAuthor(String author) {
-		ArrayList<Book> searchList = new ArrayList<Book>();
-		for (int i = 0; i <= LibraryDB.BOOKS.size() - 1; i++) {
-			Book retrievedBook = LibraryDB.BOOKS.get(i);
+	public ArrayList<BookInfoBean> searchBookByAuthor(String author) {
+		ArrayList<BookInfoBean> searchList = new ArrayList<BookInfoBean>();
+		for (int i = 0; i <= LibraryCollectionsDB.BOOKS.size() - 1; i++) {
+			BookInfoBean retrievedBook = LibraryCollectionsDB.BOOKS.get(i);
 			String retrievedBookAuthor = retrievedBook.getAuthorName();
 			if (author.equals(retrievedBookAuthor)) {
 				searchList.add(retrievedBook);
@@ -118,15 +118,15 @@ public class AdminDAOImplement implements AdminDAO {
 	}
 
 	@Override
-	public ArrayList<Book> getBooksInfo() {
-		return LibraryDB.BOOKS;
+	public ArrayList<BookInfoBean> getBooksInfo() {
+		return LibraryCollectionsDB.BOOKS;
 	}
 
 	@Override
-	public ArrayList<Book> searchBookByCategory(String category) {
-		ArrayList<Book> searchList = new ArrayList<Book>();
-		for (int i = 0; i <= LibraryDB.BOOKS.size() - 1; i++) {
-			Book retrievedBook = LibraryDB.BOOKS.get(i);
+	public ArrayList<BookInfoBean> searchBookByCategory(String category) {
+		ArrayList<BookInfoBean> searchList = new ArrayList<BookInfoBean>();
+		for (int i = 0; i <= LibraryCollectionsDB.BOOKS.size() - 1; i++) {
+			BookInfoBean retrievedBook = LibraryCollectionsDB.BOOKS.get(i);
 			String retrievedCategory = retrievedBook.getBookCategory();
 			if (category.equals(retrievedCategory)) {
 				searchList.add(retrievedBook);
@@ -140,9 +140,9 @@ public class AdminDAOImplement implements AdminDAO {
 	}
 
 	@Override
-	public List<User> showUsers() {
-		List<User> usersList = new ArrayList<User>();
-		for (User userBean : LibraryDB.USER) {
+	public List<UserInfoBean> showUsers() {
+		List<UserInfoBean> usersList = new ArrayList<UserInfoBean>();
+		for (UserInfoBean userBean : LibraryCollectionsDB.USER) {
 
 			userBean.getId();
 			userBean.getName();
@@ -155,9 +155,9 @@ public class AdminDAOImplement implements AdminDAO {
 	}
 
 	@Override
-	public List<Request> showRequests() {
-		List<Request> info = new ArrayList<Request>();
-		for (Request requestInfo : LibraryDB.REQUEST) {
+	public List<RequestInfoBean> showRequests() {
+		List<RequestInfoBean> info = new ArrayList<RequestInfoBean>();
+		for (RequestInfoBean requestInfo : LibraryCollectionsDB.REQUEST) {
 			requestInfo.getBookInfo();
 			requestInfo.getUserInfo();
 			requestInfo.isIssued();
@@ -168,15 +168,15 @@ public class AdminDAOImplement implements AdminDAO {
 	}
 
 	@Override
-	public boolean bookIssue(User user, Book book) {
+	public boolean bookIssue(UserInfoBean userInfoBean, BookInfoBean bookInfoBean) {
 		boolean isValid = false;
 
-		Request requestInfo = new Request();
+		RequestInfoBean requestInfo = new RequestInfoBean();
 
-		int noOfBooksBorrowed = user.getBooksBorrowed();
-		for (Request info : LibraryDB.REQUEST) {
-			if (info.getUserInfo().getId() == user.getId()) {
-				if (info.getBookInfo().getBookId() == book.getBookId()) {
+		int noOfBooksBorrowed = userInfoBean.getBooksBorrowed();
+		for (RequestInfoBean info : LibraryCollectionsDB.REQUEST) {
+			if (info.getUserInfo().getId() == userInfoBean.getId()) {
+				if (info.getBookInfo().getBookId() == bookInfoBean.getBookId()) {
 					requestInfo = info;
 
 					isValid = true;
@@ -186,28 +186,28 @@ public class AdminDAOImplement implements AdminDAO {
 		}
 
 		if (isValid) {
-			for (Book info2 : LibraryDB.BOOKS) {
-				if (info2.getBookId() == book.getBookId()) {
-					book = info2;
+			for (BookInfoBean info2 : LibraryCollectionsDB.BOOKS) {
+				if (info2.getBookId() == bookInfoBean.getBookId()) {
+					bookInfoBean = info2;
 				}
 			}
 
-			for (User userInfo : LibraryDB.USER) {
-				if (userInfo.getId() == user.getId()) {
-					user = userInfo;
-					noOfBooksBorrowed = user.getBooksBorrowed();
+			for (UserInfoBean userInfo : LibraryCollectionsDB.USER) {
+				if (userInfo.getId() == userInfoBean.getId()) {
+					userInfoBean = userInfo;
+					noOfBooksBorrowed = userInfoBean.getBooksBorrowed();
 
 				}
 			}
 
 			if (noOfBooksBorrowed < 3) {
 
-				boolean isRemoved = LibraryDB.BOOKS.remove(book);
+				boolean isRemoved = LibraryCollectionsDB.BOOKS.remove(bookInfoBean);
 				if (isRemoved) {
 
 					noOfBooksBorrowed++;
 					System.out.println(noOfBooksBorrowed);
-					user.setBooksBorrowed(noOfBooksBorrowed);
+					userInfoBean.setBooksBorrowed(noOfBooksBorrowed);
 					// DataBase.REQUESTDB.remove(requestInfo);
 					requestInfo.setIssued(true);
 					return true;
@@ -225,32 +225,32 @@ public class AdminDAOImplement implements AdminDAO {
 	}
 
 	@Override
-	public boolean isBookReceived(User user, Book book) {
+	public boolean isBookReceived(UserInfoBean userInfoBean, BookInfoBean bookInfoBean) {
 		boolean isValid = false;
-		Request requestInfo1 = new Request();
-		for (Request requestInfo : LibraryDB.REQUEST) {
+		RequestInfoBean requestInfo1 = new RequestInfoBean();
+		for (RequestInfoBean requestInfo : LibraryCollectionsDB.REQUEST) {
 
-			if (requestInfo.getBookInfo().getBookId() == book.getBookId()
-					&& requestInfo.getUserInfo().getId() == user.getId() && requestInfo.isReturned() == true) {
+			if (requestInfo.getBookInfo().getBookId() == bookInfoBean.getBookId()
+					&& requestInfo.getUserInfo().getId() == userInfoBean.getId() && requestInfo.isReturned() == true) {
 				isValid = true;
 				requestInfo1 = requestInfo;
 			}
 		}
 		if (isValid) {
 
-			book.setAuthorName(requestInfo1.getBookInfo().getAuthorName());
-			book.setBookName(requestInfo1.getBookInfo().getBookName());
-			LibraryDB.BOOKS.add(book);
-			LibraryDB.REQUEST.remove(requestInfo1);
+			bookInfoBean.setAuthorName(requestInfo1.getBookInfo().getAuthorName());
+			bookInfoBean.setBookName(requestInfo1.getBookInfo().getBookName());
+			LibraryCollectionsDB.BOOKS.add(bookInfoBean);
+			LibraryCollectionsDB.REQUEST.remove(requestInfo1);
 
-			for (User userInfo2 : LibraryDB.USER) {
-				if (userInfo2.getId() == user.getId()) {
-					user = userInfo2;
+			for (UserInfoBean userInfo2 : LibraryCollectionsDB.USER) {
+				if (userInfo2.getId() == userInfoBean.getId()) {
+					userInfoBean = userInfo2;
 				}
 			}
-			int noOfBooksBorrowed = user.getBooksBorrowed();
+			int noOfBooksBorrowed = userInfoBean.getBooksBorrowed();
 			noOfBooksBorrowed--;
-			user.setBooksBorrowed(noOfBooksBorrowed);
+			userInfoBean.setBooksBorrowed(noOfBooksBorrowed);
 			return true;
 		}
 		return false;
